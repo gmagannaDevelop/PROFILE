@@ -1,4 +1,12 @@
 
+## renv :
+renv
+
+## extra : 
+.Rhistory
+
+## Original : 
 .DS_Store
 Data/.DS_Store
 Scripts/.DS_Store
+.Rproj.user
