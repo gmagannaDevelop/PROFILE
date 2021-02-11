@@ -4,7 +4,9 @@ This is a repository of data, code and analyses related to the paper "Personaliz
 The paper can accessed here: https://www.frontiersin.org/articles/10.3389/fphys.2018.01965.
 
 This repository can be cited with its own DOI: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1491229.svg)](https://doi.org/10.5281/zenodo.1491229)
+
 <!--- v1.0:[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1490059.svg)](https://doi.org/10.5281/zenodo.1490059) --->
+
 <!--- v1.0:[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1186270.svg)](https://doi.org/10.5281/zenodo.1186270) --->
 
 A step-by step tutorial has been added. Please have a look at **Tutorial_PROFILE.pdf** and its instructions for a simple pipeline with similar steps but different models and data.
@@ -14,10 +16,28 @@ A step-by step tutorial has been added. Please have a look at **Tutorial_PROFILE
 This set of files and scripts is supposed to be self-sufficient. Please download data and scripts and follow instructions
 
 ### Requirements
+
 - Python version 3.0 or greater
+
 - Python's package pandas
+
 - Perl
+
 - R
+  
+  - The scripts are supposed to be self sufficient. However, due to the project's size (more than 40 R files, between scripts and Rmarkdown docs), it is likely that the number of dependencies will be big. This means a significant risk of conlficts with other package versions installed on the global library. For this reason, this fork has included support for [renv](https://rstudio.github.io/renv/). After calling `renv::init()` and inspecting `renv.lock` to determine the number of installed packages through the environment installaton, this is confirmed to be a good idea.
+
+    ```bash
+    cat renv.lock | jq ".Packages | keys | length"
+    232
+    ```
+
+  - Package `ggalt` depends on package which depends on `proj4`. The build fails because this package requires libproj. See [this issue]([proj4 error in installation · Issue #22 · hrbrmstr/ggalt · GitHub](https://github.com/hrbrmstr/ggalt/issues/22)).  The solution is manually installing the dependency and then re-attempting the install :
+    
+    ```bash
+    sudo apt install libproj-dev
+    ```
+
 - MaBoSS requires: flex, bison, gcc and g++
 
 ## Patient-specific personalization pipeline
@@ -25,7 +45,6 @@ This set of files and scripts is supposed to be self-sufficient. Please download
 In the present pipeline, two different datasets may be used (METABRIC or TCGA) and processed for further simulations with two different logical models, either a generic one (*Fumia* model, see [paper](http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0069008)) or a breast-specific one (*Zanudo* model, see [paper](https://cancerconvergence.springeropen.com/articles/10.1186/s41236-017-0007-6)).
 
 The following instructions will use METABRIC data and *Fumia* model.
-
 
 ### Generation of patient-specific profiles with R
 
