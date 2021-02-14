@@ -2,6 +2,9 @@
 ## tarballs :
 **/*.gz
 
+## full dataset Colorectal Adenocarcinoma (TCGA, PanCancer Atlas)
+## Colorectal Adenocarcinoma (TCGA, PanCancer Atlas)
+coadread_tcga_pan_can_atlas_2018/
 
 ## renv :
 renv
